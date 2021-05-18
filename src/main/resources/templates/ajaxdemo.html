@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>ajaxdemo</title>
+  <!--    引入 jquery 库 -->
+  <script type="text/javascript" th:src="@{jquery-1.12.4/jquery-1.12.4.min.js}"></script>
+  <script type="text/javascript">
+    // 原生ajax的处理方法
+    // 原理流程图：https://www.processon.com/view/link/5e8eb7a0e401fd675ba07d5e
+    function doAjax() {
+      // 创建ajax引擎对象
+      var xmlhttp;
+      if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+      } else {// code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      // 委托ajax引擎进行服务器请求
+      xmlhttp.open("GET", "doAjax?userName=张三", true); // 请求方式；请求url连接地址；是否进行异步，默认是异步
+      // ajax引擎进行服务器请求
+      xmlhttp.send();
+      // ajax进行回到处理进行局部更新
+      // ajax引擎对象通过绑定 onreadystatechange 事件，监听ajax引擎自身的状态变化
+      // onreadystatechange 事件就是回调函数和ajax引擎的的绑定过程
+      xmlhttp.onreadystatechange = function () {
+        // ajax引擎接收服务器响应(在回调的回收判断服务器是否处理完成)
+        // xmlhttp.readyState == 4 表示ajax引擎处理完成
+        // xmlhttp.status == 200 通过http状态代码判定服务器处理的状态  200 ok ； 404 找不着；500 请求内部错误；403 没有权限
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          // 进行业务逻辑处理的地方
+          // 使用js通过进行dom控件的操作完成，页面的据图刷新
+          // ajax引擎对象的responseText属性获取的是服务器响应的内容
+          document.getElementById("showMsg").innerHTML = xmlhttp.responseText; // 局部刷新
+        }
+      }
+    }
+
+    // 使用jquery完成Ajax请求
+    function doAjaxJquery(){
+      $.ajax({
+        type: "GET", // 请求的类型  等价于 form 表单的 method 属性
+        url: "doAjax", // 请求的服务器的url，等价于form表单的 action 属性
+        data: "userName=李四", // 发送服务器的表单数据  form表单数据
+        success: function(data){ // 成功时候的回调函数
+          // 进行业务逻辑处理，进行 dom 操作，完成页面的据图更新
+          $("#showMsg").html(data); // 局部刷新
+        },
+        error:function (){
+          alert("出现错误");
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+<br>
+<br>
+<span id="showMsg"></span>
+<hr>
+<input type="button" value="ajaxdemo" onclick="doAjax()"><br>
+<input type="button" value="ajaxdemo-jquery" onclick="doAjaxJquery()">
+</body>
+</html>

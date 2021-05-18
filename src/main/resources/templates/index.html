@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录主页</title>
+    <!--    引入 bootstrap的 css-->
+    <link type="text/css" rel="stylesheet" th:href="@{bootstrap-3.4.1-dist/css/bootstrap.min.css}">
+    <!--   引入 jquery 框架，需要第一个引入，因为其他的js会使用该框架-->
+    <script type="text/javascript" th:src="@{jquery-1.12.4/jquery-1.12.4.min.js}"></script>
+    <!--    引入 bootstrap的js-->
+    <script type="text/javascript" th:src="@{bootstrap-3.4.1-dist/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+
+<form class="form-horizontal" action="login" method="post" style="padding:400px">
+    <div class="form-group">
+    </div>
+    <div class="form-group">
+        <label for="username" class="col-sm-2 col-md-offset-3 control-label">用户名</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userpsw" class="col-sm-2 col-md-offset-3 control-label">密码</label>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="userpsw" name="userpsw" placeholder="请输入密码">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-2">
+            <button type="submit" class="btn btn-default">登录</button>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>
